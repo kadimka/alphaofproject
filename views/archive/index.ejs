@@ -1,0 +1,45 @@
+<% include ../layout/header.ejs%>
+<div class="main">
+    <div class="container">
+        <div class="content">
+            <% for (var i = 0; i < posts.length; i++){%>
+                <div class="post">
+                    <div class="top">
+                        <h2><a href="/posts/<%= posts[i].url%>"><%= posts[i].title%></a>
+                        
+                            <% if (posts[i].owner.login === user.login){ %>
+                                <a style="color: black; text-decoration: none" href="/post/edit/<%=  posts[i].id%>">✎</a>
+                            <% } %>
+                            
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <%- posts[i].body%>
+                    </div>
+                    <div class="bottom">
+                        <div class="author">
+                            Author:
+                            <a href="/users/<%= posts[i].owner.login%>"><%= posts[i].owner.login%> </a>
+                        </div>
+                        <a href="/posts/<%= posts[i].url%>">Comments: <%=posts[i].commentCount %></a>
+                    </div>
+                </div>
+            <%} %>
+            <div class="pagination">
+                <% if(curent > 2) { %>
+                <a class="new" href="/archive/<%=Number(curent) -1 %>">← New</a>
+                <% } %>
+                <% if(curent == 2) { %>
+                <a class="new" href="/">← Home</a>
+                <% } %>
+                <% if(pages > 0 && curent < pages) { %>
+                    <a class="old" href="/archive/<%=Number(curent) + 1%>">Old →</a>
+               <% } %>
+            </div>
+        </div>
+<% include ../layout/sidebar.ejs %>
+    </div>
+</div>
+
+<% include ../layout/footer.ejs%>
+
